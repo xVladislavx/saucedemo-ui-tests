@@ -4,7 +4,7 @@ import org.junit.jupiter.api.Test;
 import pages.LoginPage;
 import pages.ProductsPage;
 
-public class LoginTest extends BaseTest{
+public class LoginTest extends BaseTest {
     @Test
     public void successfulLogin() {
         String login = "standard_user";
@@ -28,9 +28,9 @@ public class LoginTest extends BaseTest{
 
         LoginPage loginPage = new LoginPage();
         loginPage.openPage()
-        .insertUsername(login)
-        .insertPassword(password)
-        .clickLoginBtn()
-        .shouldHaveError(alertText);
+                .insertUsername(login)
+                .insertPassword(password)
+                .clickLoginBtn()
+                .shouldHaveError(alertText);
     }
 }
