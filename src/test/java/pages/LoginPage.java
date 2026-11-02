@@ -8,7 +8,6 @@ import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.open;
 
 public class LoginPage {
-    private final String url = "https://www.saucedemo.com/";
 
     private final SelenideElement usernameInputField = $("#user-name");
     private final SelenideElement passwordInputField = $("#password");
@@ -16,7 +15,7 @@ public class LoginPage {
     private final SelenideElement errorAlert = $("[data-test='error']");
 
     public LoginPage openPage() {
-        open(this.url);
+        open("/");
         return this;
     }
 

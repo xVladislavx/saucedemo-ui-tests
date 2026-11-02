@@ -4,7 +4,7 @@ import org.junit.jupiter.api.Test;
 import pages.LoginPage;
 import pages.ProductsPage;
 
-public class LoginTest {
+public class LoginTest extends BaseTest{
     @Test
     public void successfulLogin() {
         String login = "standard_user";
