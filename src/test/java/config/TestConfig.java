@@ -26,12 +26,37 @@ public class TestConfig {
     }
 
     public static String getBaseUrl() {
-        String baseUrl = properties.getProperty("baseUrl");
+        return getRequiredProperty("baseUrl");
+    }
 
-        if (baseUrl == null || baseUrl.isBlank()) {
-            throw new IllegalStateException("baseUrl is missing in config.properties");
+    public static String getBrowser() {
+        return getRequiredProperty("browser");
+    }
+
+    public static boolean isHeadless() {
+        String isHeadless = getRequiredProperty("headless");
+
+        if (!(isHeadless.equalsIgnoreCase("true") || isHeadless.equalsIgnoreCase("false"))) {
+            throw new IllegalStateException("Property 'headless' must be 'true' or 'false', but was: " + isHeadless);
+        }
+        return Boolean.parseBoolean(isHeadless);
+    }
+
+    public static long getTimeout() {
+        return Long.parseLong(getRequiredProperty("timeout"));
+    }
+
+    public static String getBrowserSize() {
+        return getRequiredProperty("browserSize");
+    }
+
+    private static String getRequiredProperty(String property) {
+        String value = properties.getProperty(property);
+
+        if (value == null || value.isBlank()) {
+            throw new IllegalStateException(String.format("Property '%s' is missing in config.properties", property));
         }
 
-        return baseUrl;
+        return value;
     }
 }
