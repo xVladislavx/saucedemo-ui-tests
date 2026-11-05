@@ -17,7 +17,8 @@ public class LoginTest extends BaseTest {
                 .insertPassword(password)
                 .clickLoginBtn();
         ProductsPage productsPage = new ProductsPage();
-        productsPage.shouldHaveTitle("Products");
+        //productsPage.shouldHaveTitle("Products");
+        productsPage.shouldHaveTitle("Incorrect title");
     }
 
     @Test
