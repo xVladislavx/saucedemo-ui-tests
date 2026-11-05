@@ -13,5 +13,6 @@ public abstract class BaseTest {
         Configuration.headless = TestConfig.isHeadless();
         Configuration.timeout = TestConfig.getTimeout();
         Configuration.browserSize = TestConfig.getBrowserSize();
+        Configuration.reportsFolder = TestConfig.getReportsFolder();
     }
 }

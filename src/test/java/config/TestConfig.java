@@ -50,6 +50,10 @@ public class TestConfig {
         return getRequiredProperty("browserSize");
     }
 
+    public static String getReportsFolder() {
+        return getRequiredProperty("reportsFolder");
+    }
+
     private static String getRequiredProperty(String property) {
 
             String value = System.getProperty(property);
