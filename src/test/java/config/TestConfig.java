@@ -51,12 +51,16 @@ public class TestConfig {
     }
 
     private static String getRequiredProperty(String property) {
-        String value = properties.getProperty(property);
 
-        if (value == null || value.isBlank()) {
-            throw new IllegalStateException(String.format("Property '%s' is missing in config.properties", property));
-        }
+            String value = System.getProperty(property);
 
-        return value;
+            if (value == null || value.isBlank()) {
+                value = properties.getProperty(property);
+                if (value == null || value.isBlank()) {
+                    throw new IllegalStateException(String.format("Property '%s' is missing in config.properties", property));
+                }
+            }
+
+            return value;
     }
 }
