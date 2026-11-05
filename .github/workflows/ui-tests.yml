@@ -5,9 +5,12 @@ on:
   pull_request:
     branches: [main]
 
+
 jobs:
   UI-Tests:
     runs-on: ubuntu-latest
+    outputs:
+      pages_uploaded: ${{ steps.pages_artifact.outcome == 'success' }}
     steps:
       - name: Check out repository code
         uses: actions/checkout@v6
@@ -45,3 +48,28 @@ jobs:
           name: allure-html-report
           path: target/allure-report/
           if-no-files-found: warn
+      - name: Upload GitHub Pages artifact
+        id: pages_artifact
+        if: ${{ always() && github.event_name == 'push' && github.ref == 'refs/heads/main' && hashFiles('target/allure-report/index.html') != '' }}
+        uses: actions/upload-pages-artifact@v4
+        with:
+          path: target/allure-report/
+
+  deploy:
+    needs: UI-Tests
+    if: ${{ always() && github.event_name == 'push' && github.ref == 'refs/heads/main' && needs['UI-Tests'].outputs.pages_uploaded == 'true' }}
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
+
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    steps:
+      - name: Deploy Allure report to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
