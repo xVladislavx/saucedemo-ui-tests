@@ -15,4 +15,6 @@ jobs:
       - name: List files in the repository
         run: |
           ls ${{ github.workspace }}
+      - run: echo "Launching tests."
+      - run: mvn --batch-mode --update-snapshots verify
       - run: echo "🍏 This job's status is ${{ job.status }}."
